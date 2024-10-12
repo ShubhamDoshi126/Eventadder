@@ -37,10 +37,12 @@ header p {
 }
 
 .chat-section {
+    height: 75%;
     margin-bottom: 20px;
 }
 
 .chat-box {
+    height: 100%;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 10px;
@@ -50,7 +52,7 @@ header p {
 }
 
 .messages {
-    height: 200px;
+    height: 90%;
     overflow-y: auto;
     padding: 10px;
     border-bottom: 1px solid #ddd;
