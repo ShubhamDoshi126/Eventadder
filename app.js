@@ -35,6 +35,8 @@ function sendMessage() {
     setTimeout(() => {
         addMessageToChat('Bot', botResponse);
 
+        //Call LLM for response and calculation of the input and possible creation of calendar event
+
         // Create an event in Google Calendar (mock implementation)
         createGoogleCalendarEvent(messageData);
         // Clear input
@@ -53,9 +55,17 @@ function sendMessage() {
 function addMessageToChat(sender, message, image) {
     const messagesContainer = document.getElementById('messages');
     const messageElement = document.createElement('div');
-    messageElement.classList.add('message');
-
-    messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    var currentImage;
+    if (sender == 'You') {
+        currentImage = "icon-user.png";
+    }
+    else {
+        currentImage = "icon-ai.png"
+    }
+    messageElement.style.display = 'flex';
+    messageElement.style.alignItems = 'center';
+    messageElement.style.marginBottom = '10px';
+    messageElement.innerHTML = `<img src=${currentImage} alt="user" width=50px height=50px>&nbsp;<strong>${sender}:</strong> &nbsp;${message}`;
     
     // If there's an image, add it to the message
     if (image) {

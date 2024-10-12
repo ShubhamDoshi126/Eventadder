@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Alerts App</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="app.js"></script>
 </head>
 <body>
     <div class="container">
@@ -36,7 +37,5 @@
             </div>
         </section>
     </div>
-
-    <script src="app.js"></script>
 </body>
 </html>
