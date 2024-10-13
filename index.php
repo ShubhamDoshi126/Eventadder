@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Event Alerts App</h1>
+            <h1>Pick2Plan</h1>
             <p>Plan your events seamlessly!</p>
         </header>
 
@@ -30,6 +30,7 @@
 
                 <!-- Clear Chat History button -->
                 <button id="clear-history-btn" onclick="clearChatHistory()">Clear History</button>
+                
             </div>
         </section>
 

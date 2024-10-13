@@ -12,7 +12,6 @@ body {
 }
 
 .container {
-    
     max-width: 960px;
     margin: 20px auto;
     padding: 20px;
@@ -27,7 +26,7 @@ header {
 }
 
 header h1 {
-    color: #4CAF50;
+    color: #4941a2;
     font-size: 2.5rem;
 }
 
@@ -37,7 +36,7 @@ header p {
 }
 
 .chat-section {
-    height: 75%;
+    height: 550px;
     margin-bottom: 20px;
 }
 
@@ -111,7 +110,7 @@ header p {
 
 button {
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: #4941a2;
     color: white;
     border: none;
     border-radius: 5px;
@@ -130,7 +129,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #362f82;
 }
 
 .events-section {
