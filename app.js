@@ -1,5 +1,10 @@
 let selectedImage = null;
 
+// Load chat history from localStorage when the page loads
+window.onload = function () {
+    loadChatHistory();
+};
+
 // Handle image upload
 function handleImageUpload(event) {
     const file = event.target.files[0];
@@ -35,10 +40,11 @@ function sendMessage() {
     setTimeout(() => {
         addMessageToChat('Bot', botResponse);
 
-        //Call LLM for response and calculation of the input and possible creation of calendar event
+        // Call LLM for response and possible calendar event creation
 
         // Create an event in Google Calendar (mock implementation)
         createGoogleCalendarEvent(messageData);
+
         // Clear input
         document.getElementById('user-input').value = '';
     }, 500); // Simulate bot response delay
@@ -51,22 +57,28 @@ function sendMessage() {
     document.getElementById('image-upload').value = ''; // Clear file input
 }
 
-// Function to add message and image to the chat display
+// Function to add message and image to the chat display and save in localStorage
 function addMessageToChat(sender, message, image) {
     const messagesContainer = document.getElementById('messages');
     const messageElement = document.createElement('div');
-    var currentImage;
-    if (sender == 'You') {
+    messageElement.classList.add('message');
+
+    let currentImage;
+    if (sender === 'You') {
         currentImage = "icon-user.png";
+    } else {
+        currentImage = "icon-ai.png";
     }
-    else {
-        currentImage = "icon-ai.png"
-    }
-    messageElement.style.display = 'flex';
-    messageElement.style.alignItems = 'center';
-    messageElement.style.marginBottom = '10px';
-    messageElement.innerHTML = `<img src=${currentImage} alt="user" width=50px height=50px>&nbsp;<strong>${sender}:</strong> &nbsp;${message}`;
-    
+
+    // Updated innerHTML structure for better wrapping
+    messageElement.innerHTML = `
+        <div style="display: flex; align-items: center;">
+            <img src="${currentImage}" alt="user" width="50px" height="50px" style="margin-right: 10px;">
+            <strong>${sender}:</strong>
+        </div>
+        <p style="padding-left: 6px; padding-top: 5px; margin: 0;">${message}</p>
+    `;
+
     // If there's an image, add it to the message
     if (image) {
         const imageElement = document.createElement('img');
@@ -82,4 +94,28 @@ function addMessageToChat(sender, message, image) {
 
     messagesContainer.appendChild(messageElement);
     messagesContainer.scrollTop = messagesContainer.scrollHeight; // Auto scroll to the bottom
+
+    // Save the chat message in localStorage
+    saveChatToLocalStorage(sender, message, image);
+}
+
+// Function to save chat messages in localStorage
+function saveChatToLocalStorage(sender, message, image) {
+    let chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    chatHistory.push({ sender, message, image });
+    localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+}
+
+// Function to load chat history from localStorage
+function loadChatHistory() {
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    chatHistory.forEach(chat => {
+        addMessageToChat(chat.sender, chat.message, chat.image);
+    });
+}
+
+// Function to clear chat history
+function clearChatHistory() {
+    localStorage.removeItem('chatHistory');
+    document.getElementById('messages').innerHTML = ''; // Clear the chat display
 }
