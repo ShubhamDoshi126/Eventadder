@@ -53,8 +53,8 @@ header p {
 #clear-history-btn {
     display: none;
     position: absolute;
-    bottom: 70px;
-    right: 315px;
+    bottom: 60px;
+    right: 300px;
     padding: 10px;
     background-color: #f44336;
     color: white;
