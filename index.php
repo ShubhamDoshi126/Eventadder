@@ -15,7 +15,7 @@
         </header>
 
         <section class="chat-section">
-            <div class="chat-box">
+            <div class="chat-box" id="chat-box">
                 <div class="messages" id="messages">
                     <!-- Chatbot messages will appear here -->
                 </div>
@@ -27,8 +27,13 @@
                     </label>
                     <button onclick="sendMessage()">Send</button>
                 </div>
+
+                <!-- Clear Chat History button -->
+                <button id="clear-history-btn" onclick="clearChatHistory()">Clear History</button>
             </div>
         </section>
+
+
 
         <section class="events-section">
             <h2>Your Events</h2>
