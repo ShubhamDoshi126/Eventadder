@@ -34,24 +34,25 @@ function sendMessage() {
         text: userInput,
         image: selectedImage // Send the image along with the text
     };
-
-    // Basic response from chatbot
-    const botResponse = `Event created: "${messageData.text}"`;
-    setTimeout(() => {
-        addMessageToChat('Bot', botResponse);
-
-        // Call LLM for response and possible calendar event creation
-
-        // Create an event in Google Calendar (mock implementation)
-        createGoogleCalendarEvent(messageData);
-
-        // Clear input
-        document.getElementById('user-input').value = '';
-    }, 500); // Simulate bot response delay
-
-    // Send messageData to backend or chatbot logic
-
-    // Clear the input and image after sending
+    // Send the messageData to the backend
+    fetch('/create_event', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(messageData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.event_link) {
+            const botResponse = `Event created: <a href="${data.event_link}" target="_blank">View event</a>`;
+            addMessageToChat('Bot', botResponse);
+        } else if (data.error) {
+            addMessageToChat('Bot', `Error: ${data.error}`);
+        }
+    })
+    .catch(error => console.error('Error creating event:', error));
+        // Clear the input and image after sending
     document.getElementById('user-input').value = '';
     selectedImage = null; // Reset selected image
     document.getElementById('image-upload').value = ''; // Clear file input
